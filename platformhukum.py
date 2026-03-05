@@ -100,8 +100,8 @@ elif st.session_state.mode == "bedah":
             prompt_bedah = f"Berikut adalah teks dari PDF: {text_pdf[:4000]}... \n\n Pertanyaan User: Fokus bedah pada bagian {fokus}. Jelaskan secara tajam dan holistik!"
             
             # Panggil Groq untuk analisis
-        if st.button("Mulai Bedah"):
-    with st.spinner("Sabar bro, lagi dibedah..."):
+    if st.button("Mulai Bedah"):
+     with st.spinner("Sabar bro, lagi dibedah..."):
         response = client.chat.completions.create(
             model="llama3-70b-8192",
             messages=[{"role": "user", "content": prompt_bedah}]
@@ -109,6 +109,7 @@ elif st.session_state.mode == "bedah":
         # INI YANG PENTING: Biar jawabannya muncul di web
         st.markdown("### Hasil Analisis:")
         st.write(response.choices[0].message.content)
+
 
 
 
