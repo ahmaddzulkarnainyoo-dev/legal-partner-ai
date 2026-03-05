@@ -69,7 +69,7 @@ if st.session_state.mode == "belajar":
         # 4. Panggil Groq buat Jawab
         with st.chat_message("assistant"):
             response = client.chat.completions.create(
-                model="llama3-70b-8192", # Model paling pinter di Groq
+                model="llama-3.3-70b-versatile", # Model paling pinter di Groq
                 messages=st.session_state.messages,
             )
             full_response = response.choices[0].message.content
@@ -100,15 +100,22 @@ elif st.session_state.mode == "bedah":
             prompt_bedah = f"Berikut adalah teks dari PDF: {text_pdf[:4000]}... \n\n Pertanyaan User: Fokus bedah pada bagian {fokus}. Jelaskan secara tajam dan holistik!"
             
             # Panggil Groq untuk analisis
-    if st.button("Mulai Bedah"):
-     with st.spinner("Sabar bro, lagi dibedah..."):
-        response = client.chat.completions.create(
-            model="llama3-70b-8192",
-            messages=[{"role": "user", "content": prompt_bedah}]
-        )
-        # INI YANG PENTING: Biar jawabannya muncul di web
-        st.markdown("### Hasil Analisis:")
-        st.write(response.choices[0].message.content)
+    # Bagian Bedah Berkas lo yang di baris 103 ke bawah rapiin jadi gini:
+if st.button("Mulai Bedah"):
+    if fokus: # Pastiin fokus ada isinya pas tombol diklik
+        with st.spinner("Sabar bro, lagi dibedah..."):
+            try:
+                response = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile", # Pake model yang bener
+                    messages=[{"role": "user", "content": prompt_bedah}]
+                )
+                st.markdown("### Hasil Analisis:")
+                st.write(response.choices[0].message.content)
+            except Exception as e:
+                st.error(f"Ada masalah koneksi ke Groq nih dher: {e}")
+    else:
+        st.warning("Kasih tau dulu dher apa yang mau dibedah!")
+
 
 
 
