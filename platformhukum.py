@@ -16,7 +16,7 @@ if "mode" not in st.session_state:
 # --- MENU UTAMA ---
 if st.session_state.mode is None:
     st.title("⚖️ Selamat Datang di Legal Partner")
-    st.subheader("Pilih metode interaksi lo hari ini, dher:")
+    st.subheader("semua anak UNPAM berhak dapat yang terbaik Pilih metode interaksi lo hari ini, dher:")
     
     col1, col2 = st.columns(2)
     with col1:
@@ -113,6 +113,7 @@ elif st.session_state.mode == "bedah":
             else:
                 st.warning("Kasih tau dulu dher apa yang mau dibedah!")
            
+
 
 
 
