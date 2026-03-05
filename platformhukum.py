@@ -101,8 +101,15 @@ elif st.session_state.mode == "bedah":
             
             # Panggil Groq untuk analisis
             if st.button("Mulai Bedah"):
-                # [Logika API Groq di sini...]
-                st.write("Hasil Analisis Groq muncul di sini...")
+    with st.spinner("Sabar bro, lagi dibedah..."):
+        response = client.chat.completions.create(
+            model="llama3-70b-8192",
+            messages=[{"role": "user", "content": prompt_bedah}]
+        )
+        # INI YANG PENTING: Biar jawabannya muncul di web
+        st.markdown("### Hasil Analisis:")
+        st.write(response.choices[0].message.content)
+
 
 
 
