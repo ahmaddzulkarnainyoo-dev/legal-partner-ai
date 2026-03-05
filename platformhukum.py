@@ -94,27 +94,23 @@ elif st.session_state.mode == "bedah":
         st.success("PDF Berhasil dibaca!")
         
         # Tanya user mau fokus ke mana
-        fokus = st.text_input("Apa yang mau lo bedah dari PDF ini? (Contoh: Amar putusan, Pertimbangan Hakim, atau Celah Hukum)")
+        # 1. Input dari user (Baris 97)
+fokus = st.text_input("Apa yang mau lo bedah dari PDF ini? (Contoh: Amar putusan, Pertimbangan Hakim, atau Celah Hukum)")
+
+# 2. Logika Eksekusi
+if fokus: # Jika user sudah ngetik sesuatu
+    if st.button("Mulai Bedah"): # Jika tombol diklik
+        prompt_bedah = f"Berikut adalah teks dari PDF: {text_pdf[:4000]}... \n\n Pertanyaan: {fokus}"
         
-        if fokus:
-            prompt_bedah = f"Berikut adalah teks dari PDF: {text_pdf[:4000]}... \n\n Pertanyaan User: Fokus bedah pada bagian {fokus}. Jelaskan secara tajam dan holistik!"
-            
-            # Panggil Groq untuk analisis
-    # Bagian Bedah Berkas lo yang di baris 103 ke bawah rapiin jadi gini:
-if st.button("Mulai Bedah"):
-    if fokus: # Pastiin fokus ada isinya pas tombol diklik
         with st.spinner("Sabar bro, lagi dibedah..."):
             try:
                 response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile", # Pake model yang bener
+                    model="llama-3.3-70b-versatile",
                     messages=[{"role": "user", "content": prompt_bedah}]
                 )
                 st.markdown("### Hasil Analisis:")
                 st.write(response.choices[0].message.content)
-            except Exception as e:
-                st.error(f"Ada masalah koneksi ke Groq nih dher: {e}")
-    else:
-        st.warning("Kasih tau dulu dher apa yang mau dibedah!")
+           
 
 
 
