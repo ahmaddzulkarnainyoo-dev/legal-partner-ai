@@ -4,7 +4,7 @@ import PyPDF2 # Buat baca teks dari PDF
 
 # Setup API Groq
 # Pastiin baris ini tertulis lengkap seperti ini:
-api_key_groq = st.secrets["gsk MgW5SQTrrYNLxG6w4Af0WGdyb3FYxlkSginCb4b4oFhHpnaM9Adt"]
+api_key_groq = st.secrets["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"]
 client = Groq(api_key=api_key_groq)
 
 st.set_page_config(page_title="Legal Partner AI", layout="wide")
@@ -103,4 +103,5 @@ elif st.session_state.mode == "bedah":
             if st.button("Mulai Bedah"):
                 # [Logika API Groq di sini...]
                 st.write("Hasil Analisis Groq muncul di sini...")
+
 
